@@ -72,6 +72,6 @@ func checkAndGetEnv(envVar string) string {
 		log.Errorf("%s env variable must be set", envVar)
 		os.Exit(1)
 	}
-	log.Debugf("%s is set to \"%s\"", envVar, value)
+	log.Debugf("%s is set to '%s'", envVar, value)
 	return value
 }
