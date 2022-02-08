@@ -30,6 +30,6 @@ jobs:
             if (( $(echo "$pct $MIN" | awk '{print ($1 > $2)}') )); then
                 echo "OK"
             else
-                echo "Current test coverage is below threshold"
+                echo "Current test coverage is below threshold of $MIN percent"
                 exit 1
             fi
