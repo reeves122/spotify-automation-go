@@ -62,6 +62,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	log.Info("Done processing!")
 }
 
 func checkAndGetEnv(envVar string) string {
@@ -70,5 +72,6 @@ func checkAndGetEnv(envVar string) string {
 		log.Errorf("%s env variable must be set", envVar)
 		os.Exit(1)
 	}
+	log.Debugf("%s is set to \"%s\"", envVar, value)
 	return value
 }
