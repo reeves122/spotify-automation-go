@@ -187,7 +187,7 @@ func (u *util) processQueuePlaylist(playlist spotify.SimplePlaylist) error {
 
 // FindPossibleDuplicateTracks finds tracks which are duplicated in a playlist
 func (u *util) FindPossibleDuplicateTracks(playlists []spotify.SimplePlaylist) error {
-	log.Warning("FindPossibleDuplicateTracks() not implemented")
+	// TODO: Implement
 	return nil
 }
 
