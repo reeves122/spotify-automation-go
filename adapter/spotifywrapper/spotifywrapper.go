@@ -50,6 +50,11 @@ func (w *wrapper) LoginAndCreateClient(token *oauth2.Token) {
 	w.client = client
 }
 
+func (w *wrapper) GetToken() (*oauth2.Token, error) {
+	newtoken, err := w.client.Token()
+	return newtoken, err
+}
+
 func (w *wrapper) GetAllPlaylistsForUser(username string) ([]spotify.SimplePlaylist, error) {
 	log.Infof("Getting list of playlists for user: %s", username)
 	ctx := context.Background()

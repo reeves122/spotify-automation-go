@@ -20,4 +20,5 @@ type SpotifyWrapperInterface interface {
 	GetTokenFromResponseCode(responseCode string) (*oauth2.Token, error)
 	LoginAndCreateClient(token *oauth2.Token)
 	CreateAuthenticator(redirectURL string)
+	GetToken() (*oauth2.Token, error)
 }
