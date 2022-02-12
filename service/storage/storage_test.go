@@ -4,6 +4,7 @@ import (
 	"os"
 	"path/filepath"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/zmb3/spotify/v2"
@@ -26,6 +27,13 @@ var testTracks = []spotify.PlaylistTrack{
 			},
 		},
 	},
+}
+
+var testToken = &oauth2.Token{
+	AccessToken:  "test1",
+	RefreshToken: "test2",
+	TokenType:    "Bearer",
+	Expiry:       time.Unix(1644696995, 0),
 }
 
 func cleanUp(cacheDir string) {
@@ -70,25 +78,15 @@ func Test_GetPlaylistFilename(t *testing.T) {
 func Test_SaveToken(t *testing.T) {
 	defer cleanUp("test")
 	s := NewStorage("test", true)
-	token := &oauth2.Token{
-		AccessToken:  "",
-		RefreshToken: "",
-		TokenType:    "",
-	}
-	assert.NoError(t, s.SaveToken(token, "test.json"))
+	assert.NoError(t, s.SaveToken(testToken, "test.json"))
 }
 
 func Test_LoadToken(t *testing.T) {
 	defer cleanUp("test")
 	s := NewStorage("test", true)
-	token := &oauth2.Token{
-		AccessToken:  "",
-		RefreshToken: "",
-		TokenType:    "",
-	}
-	_ = s.SaveToken(token, "test.json")
 
+	_ = s.SaveToken(testToken, "test.json")
 	result, err := s.LoadToken("test.json")
 	assert.NoError(t, err)
-	assert.Equal(t, token, result)
+	assert.Equal(t, testToken, result)
 }
