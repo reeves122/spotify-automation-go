@@ -33,7 +33,7 @@ var testToken = &oauth2.Token{
 	AccessToken:  "test1",
 	RefreshToken: "test2",
 	TokenType:    "Bearer",
-	Expiry:       time.Unix(1644696995, 0),
+	Expiry:       time.Unix(1644696995, 0).UTC(),
 }
 
 func cleanUp(cacheDir string) {
