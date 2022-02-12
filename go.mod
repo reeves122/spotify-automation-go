@@ -3,6 +3,7 @@ module github.com/reeves122/spotify-automation-go
 go 1.17
 
 require (
+	github.com/golang/mock v1.4.4
 	github.com/stretchr/testify v1.7.0
 	github.com/zmb3/spotify/v2 v2.0.1
 	golang.org/x/oauth2 v0.0.0-20210810183815-faf39c7919d5
