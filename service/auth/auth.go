@@ -30,9 +30,21 @@ func (a *auth) Login(redirectURL string, tokenFile string) error {
 		token = a.createAndSaveToken(tokenFile)
 	}
 
-	log.Info("Logging in using token")
-
+	log.Info("Logging in using saved token")
 	a.spotify.LoginAndCreateClient(token)
+
+	newToken, err := a.spotify.GetToken()
+	if err != nil {
+		return err
+	}
+
+	log.Info("Updating saved token")
+	err = a.storage.SaveToken(newToken, tokenFile)
+	if err != nil {
+		log.Error("Unable to save token to file: ", tokenFile)
+		return err
+	}
+
 	return nil
 }
 
