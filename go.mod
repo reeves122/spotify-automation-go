@@ -3,13 +3,13 @@ module github.com/reeves122/spotify-automation-go
 go 1.17
 
 require (
-	github.com/golang/mock v1.4.4
+	github.com/golang/mock v1.6.0
 	github.com/stretchr/testify v1.7.0
 	github.com/zmb3/spotify/v2 v2.0.1
 	golang.org/x/oauth2 v0.0.0-20210810183815-faf39c7919d5
 )
 
-require golang.org/x/sys v0.0.0-20210423082822-04245dca01da // indirect
+require golang.org/x/sys v0.0.0-20210510120138-977fb7262007 // indirect
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
