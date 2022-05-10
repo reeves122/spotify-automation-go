@@ -1,0 +1,22 @@
+on:
+  workflow_dispatch:
+  push:
+
+env:
+  GITHUB_TOKEN: ${{ secrets.FILE_SYNC_PAT }}
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.FILE_SYNC_PAT }}
+
+      - uses: reeves122/file-sync@87c149c95a066c239255611ce20987b1c9c3490b
+        with:
+          token: ${{ secrets.FILE_SYNC_PAT }}
+          repo: reeves122/micro-airlines-api-go
+          files: |
+            .gitignore
+            LICENSE
