@@ -13,7 +13,7 @@ jobs:
         with:
           token: ${{ secrets.FILE_SYNC_PAT }}
 
-      - uses: reeves122/file-sync@87c149c95a066c239255611ce20987b1c9c3490b
+      - uses: reeves122/file-sync@cb178debc90c55df478a97e77216b3d35fbcf4d6
         with:
           token: ${{ secrets.FILE_SYNC_PAT }}
           repo: reeves122/micro-airlines-api-go
