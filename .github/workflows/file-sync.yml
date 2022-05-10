@@ -16,10 +16,7 @@ jobs:
       - uses: reeves122/file-sync@87c149c95a066c239255611ce20987b1c9c3490b
         with:
           token: ${{ secrets.FILE_SYNC_PAT }}
-          repo: champ-oss/terraform-module-template
+          repo: reeves122/micro-airlines-api-go
           files: |
-            .tflint.hcl
-            test/src/go.mod
-            examples/complete/main.tf
-            .github/CODEOWNERS
-            .github/workflows/release.yml
+            .gitignore
+            LICENSE
