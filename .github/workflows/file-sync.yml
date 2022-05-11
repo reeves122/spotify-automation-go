@@ -1,6 +1,7 @@
 on:
   workflow_dispatch:
-  push:
+  schedule:
+   - cron: "0 * * * *"
 
 env:
   GITHUB_TOKEN: ${{ secrets.FILE_SYNC_PAT }}
@@ -13,7 +14,7 @@ jobs:
         with:
           token: ${{ secrets.FILE_SYNC_PAT }}
 
-      - uses: reeves122/file-sync@7487d3a775c3b29052c8b29aaefe4c3fb14e2d04
+      - uses: champ-oss/file-sync@v1.0.0-c40cbff
         with:
           token: ${{ secrets.FILE_SYNC_PAT }}
           repo: reeves122/micro-airlines-api-go
