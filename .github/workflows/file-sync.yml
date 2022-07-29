@@ -14,7 +14,7 @@ jobs:
         with:
           token: ${{ secrets.FILE_SYNC_PAT }}
 
-      - uses: champ-oss/file-sync@v1.0.0-c40cbff
+      - uses: champ-oss/file-sync@v1.0.29-3f8953c
         with:
           token: ${{ secrets.FILE_SYNC_PAT }}
           repo: reeves122/micro-airlines-api-go
