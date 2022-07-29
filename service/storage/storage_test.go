@@ -55,6 +55,24 @@ func Test_SaveTracksFile_AbsolutePath(t *testing.T) {
 	assert.Nil(t, err)
 }
 
+func Test_SaveTracksFile_With_Special_Characters(t *testing.T) {
+	path := filepath.Join(os.TempDir(), "test")
+	defer cleanUp(path)
+	s := NewStorage(path, false)
+
+	// Test forward slash
+	err := s.SaveTracksFile("test / playlist", testTracks)
+	assert.Nil(t, err)
+
+	// Test backslash
+	err = s.SaveTracksFile("test \\ playlist", testTracks)
+	assert.Nil(t, err)
+
+	// Test period
+	err = s.SaveTracksFile("test . playlist", testTracks)
+	assert.Nil(t, err)
+}
+
 func Test_LoadTracksFile(t *testing.T) {
 	defer cleanUp("test")
 	s := NewStorage("test", true)
@@ -66,6 +84,35 @@ func Test_LoadTracksFile(t *testing.T) {
 	assert.Equal(t, testTracks, result)
 }
 
+func Test_LoadTracksFile_With_Special_Characters(t *testing.T) {
+	defer cleanUp("test")
+	s := NewStorage("test", true)
+
+	// Test forward slash
+	err := s.SaveTracksFile("test / playlist", testTracks)
+	assert.Nil(t, err)
+
+	result, err := s.LoadTracksFile("test / playlist")
+	assert.Nil(t, err)
+	assert.Equal(t, testTracks, result)
+
+	// Test backslash
+	err = s.SaveTracksFile("test \\ playlist", testTracks)
+	assert.Nil(t, err)
+
+	result, err = s.LoadTracksFile("test \\ playlist")
+	assert.Nil(t, err)
+	assert.Equal(t, testTracks, result)
+
+	// Test period
+	err = s.SaveTracksFile("test . playlist", testTracks)
+	assert.Nil(t, err)
+
+	result, err = s.LoadTracksFile("test . playlist")
+	assert.Nil(t, err)
+	assert.Equal(t, testTracks, result)
+}
+
 func Test_GetPlaylistFilename(t *testing.T) {
 	defer cleanUp("test")
 	s := NewStorage("test", true)
@@ -73,6 +120,29 @@ func Test_GetPlaylistFilename(t *testing.T) {
 	cwd, _ := os.Getwd()
 	result := s.getPlaylistFilename(playlist)
 	assert.Equal(t, filepath.Join(cwd, "test", "foo.json"), result)
+}
+
+func Test_GetPlaylistFilename_With_Special_Characters(t *testing.T) {
+	defer cleanUp("test")
+	s := NewStorage("test", true)
+
+	// Test forward slash
+	playlist := "test / playlist"
+	cwd, _ := os.Getwd()
+	result := s.getPlaylistFilename(playlist)
+	assert.Equal(t, filepath.Join(cwd, "test", "test - playlist.json"), result)
+
+	// Test backslash
+	playlist = "test \\ playlist"
+	cwd, _ = os.Getwd()
+	result = s.getPlaylistFilename(playlist)
+	assert.Equal(t, filepath.Join(cwd, "test", "test - playlist.json"), result)
+
+	// Test period
+	playlist = "test . playlist"
+	cwd, _ = os.Getwd()
+	result = s.getPlaylistFilename(playlist)
+	assert.Equal(t, filepath.Join(cwd, "test", "test - playlist.json"), result)
 }
 
 func Test_SaveToken(t *testing.T) {

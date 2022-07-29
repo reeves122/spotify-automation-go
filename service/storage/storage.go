@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
 
 	log "github.com/sirupsen/logrus"
 	"github.com/zmb3/spotify/v2"
@@ -41,7 +42,7 @@ func (s *storage) LoadToken(fileName string) (*oauth2.Token, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rawFile.Close()
+	defer closeFile(rawFile)
 
 	bytes, _ := ioutil.ReadAll(rawFile)
 
@@ -77,7 +78,7 @@ func (s *storage) LoadTracksFile(playlistName string) ([]spotify.PlaylistTrack, 
 	if err != nil {
 		return nil, err
 	}
-	defer rawFile.Close()
+	defer closeFile(rawFile)
 
 	bytes, _ := ioutil.ReadAll(rawFile)
 
@@ -102,5 +103,16 @@ func (s *storage) SaveTracksFile(playlistName string, tracks []spotify.PlaylistT
 
 // getPlaylistFilename returns the full path to a playlist file
 func (s *storage) getPlaylistFilename(playlistName string) string {
+	playlistName = strings.ReplaceAll(playlistName, "/", "-")
+	playlistName = strings.ReplaceAll(playlistName, "\\", "-")
+	playlistName = strings.ReplaceAll(playlistName, ".", "-")
 	return filepath.Join(s.cacheDir, playlistName+".json")
+}
+
+// closeFile closes an open file and checks for error
+func closeFile(file *os.File) {
+	err := file.Close()
+	if err != nil {
+		panic(err)
+	}
 }
