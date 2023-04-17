@@ -2,7 +2,7 @@ name: 'Combine Dependabot PRs'
 
 on:
   schedule:
-    - cron: '28 * * * *'
+    - cron: '30 * * * *'
   workflow_dispatch:
     inputs:
       branchPrefix:
